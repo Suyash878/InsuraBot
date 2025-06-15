@@ -1,4 +1,4 @@
-# 🤖 SmartAssist — Your AI Copilot for Insurance Data
+# NexusLore — Your AI Copilot for Your Data - (WIP)
 
 SmartAssist is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
@@ -6,7 +6,7 @@ Whether you're exploring large datasets, analyzing customer queries, or automati
 
 ---
 
-## ✨ Features
+## Features
 
 ### 🔍 Semantic Search on your Data
 Search your documents and spreadsheets using natural language queries. SmartAssist uses MindsDB's Knowledge Bases to understand what you mean — not just exact keywords.
