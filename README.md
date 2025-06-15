@@ -1,4 +1,4 @@
-# 🤖 SmartAssist — Your AI Copilot for Insurance Data
+# SmartAssist — Your AI Copilot Your Data
 
 SmartAssist is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
