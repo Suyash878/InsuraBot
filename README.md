@@ -6,7 +6,7 @@ Whether you're exploring large datasets, analyzing customer queries, or automati
 
 ---
 
-## ✨ Features
+## Features
 
 ### 🔍 Semantic Search on your Data
 Search your documents and spreadsheets using natural language queries. SmartAssist uses MindsDB's Knowledge Bases to understand what you mean — not just exact keywords.
