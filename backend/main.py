@@ -15,9 +15,11 @@ async def init_sheets(request: Request):
     sheet_name = body.get("sheet_name")
     return sheets_integration.init_sheets_db(spreadsheet_id, sheet_name)
 
-@app.get("/query/")
-def query_kb(q: str, gender: str = None):
-    return semantic_query.semantic_search(q, gender)
+@app.post("/query/")
+async def query_kb(request: Request):
+    body = await request.json()
+    content_column = body.get("content_column", "Policy_type")
+    return semantic_query.semantic_search(content_column)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

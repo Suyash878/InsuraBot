@@ -11,8 +11,7 @@ RERANKING_API_KEY = os.getenv('RERANKING_API_KEY')
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
 
 query = """
-        INSERT INTO insurance_kb
-        SELECT * FROM sheets_datasource.insurance;"""
+        SELECT * FROM insurance_kb"""
 
 result = con.query(query)
 print(result.fetch())
