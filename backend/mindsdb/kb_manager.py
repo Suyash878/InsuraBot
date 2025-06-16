@@ -25,9 +25,9 @@ def create_kb(kb_name: str):
                 "model_name": "Salesforce/Llama-Rank-V1",
                 "api_key": "{RERANKING_API_KEY}"
             }},
-            metadata_columns = ['sales_rep'],
-            content_columns = ['region'],
-            id_column = 'transaction_id';
+            metadata_columns = ['Customer_Name'],
+            content_columns = ['Policy_Type'],
+            id_column = 'Policy_ID';
         """
         result = con.query(query)
         print(result.fetch())
@@ -41,17 +41,20 @@ def insert_into_kb(kb_name: str):
         INSERT INTO {kb_name}_kb
         SELECT * FROM sheets_datasource.{kb_name};
         """
-        con.query(query)
+        result = con.query(query)
+        print(result.fetch())
         return {"status": "success", "message": f"Data inserted into {kb_name}_kb."}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-def create_kb_index(kb_name: str):
-    try:
-        query = f"""
-        CREATE INDEX ON KNOWLEDGE_BASE {kb_name}_kb;
-        """
-        con.query(query)
-        return {"status": "success", "message": f"Index created on {kb_name}_kb."}
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
+# NOT USING THIS BECAUSE USING CHROMA DB--------------------
+# def create_kb_index(kb_name: str):
+#     try:
+#         query = f"""
+#         CREATE INDEX ON KNOWLEDGE_BASE {kb_name}_kb;
+#         """
+#         result = con.query(query)
+#         print(result.fetch())
+#         return {"status": "success", "message": f"Index created on {kb_name}_kb."}
+#     except Exception as e:
+#         return {"status": "error", "message": str(e)}
