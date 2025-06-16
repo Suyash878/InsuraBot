@@ -7,7 +7,7 @@ load_dotenv()
 EMBEDDING_API_KEY = os.getenv('EMBEDDING_API_KEY')
 RERANKING_API_KEY = os.getenv('RERANKING_API_KEY')
 
-# Connect to MindsDB
+# Connecting to MindsDB
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
 
 def create_kb(kb_name: str):
