@@ -5,11 +5,12 @@ from . import kb_manager
 
 # Load environment variables
 load_dotenv()
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')  # Using same key for Gemini
 
 # Connect to local MindsDB instance
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
 
-def init_sheets_db(spreadsheet_id: str, sheet_name: str):
+def init_sheets_db(spreadsheet_id: str, sheet_name: str, data_description: str):
     try:
         # Create sheets database
         sheets_query = f"""
@@ -21,9 +22,10 @@ def init_sheets_db(spreadsheet_id: str, sheet_name: str):
                 "sheet_name": "{sheet_name}"
             }};
         """
-        con.query(sheets_query).fetch()
+        result = con.query(sheets_query)
+        print(result.fetch())
         
-        # Create knowledge base with sheet name
+        # Create knowledge base
         kb_response = kb_manager.create_kb(sheet_name)
         if kb_response["status"] == "error":
             return kb_response
@@ -33,14 +35,25 @@ def init_sheets_db(spreadsheet_id: str, sheet_name: str):
         if insert_response["status"] == "error":    
             return insert_response
             
-        # Create index on knowledge base
-        index_response = kb_manager.create_kb_index(sheet_name)
-        if index_response["status"] == "error":
-            return index_response
-            
+        # Create AI agent
+        agent_query = f"""
+        CREATE AGENT {sheet_name}_agent
+        USING
+            model = 'gemini-2.0-flash',
+            google_api_key = '{GEMINI_API_KEY}',
+            include_knowledge_bases = ['mindsdb.{sheet_name}_kb'],
+            include_tables = ['sheets_datasource.{sheet_name}'],
+            prompt_template = '
+                mindsdb.{sheet_name}_kb stores {data_description}
+                sheets_datasource.{sheet_name} stores {data_description}
+                Use this data to answer questions accurately.
+            ';
+        """
+        result = con.query(agent_query)
+        print(result.fetch())
         return {
             "status": "success", 
-            "message": f"Google Sheets DB initialized and data inserted into '{sheet_name}_kb' knowledge base."
+            "message": f"Initialized: Google Sheets DB, Knowledge Base '{sheet_name}_kb', and Agent '{sheet_name}_agent'"
         }
     except Exception as e:
         return {"status": "error", "message": str(e)}

@@ -1,6 +1,8 @@
 import mindsdb_sdk
 from dotenv import load_dotenv
 import os
+import json
+import pandas as pd
 
 load_dotenv()
 
@@ -9,6 +11,26 @@ RERANKING_API_KEY = os.getenv('RERANKING_API_KEY')
 
 # Connecting to MindsDB
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
+
+def list_knowledge_bases():
+    try:
+        query = """
+        SHOW KNOWLEDGE BASES;
+        """
+        result = con.query(query)
+        
+        # Convert to pandas DataFrame and then to dict
+        df = pd.DataFrame(result.fetch())
+        
+        # Convert DataFrame to a list of dictionaries
+        kbs = df.to_dict('records')
+        
+        # Ensure all numpy types are converted to Python native types
+        kbs = json.loads(json.dumps(kbs, default=str))
+        
+        return {"status": "success", "knowledge_bases": kbs}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 def create_kb(kb_name: str):
     try:
@@ -25,9 +47,9 @@ def create_kb(kb_name: str):
                 "model_name": "Salesforce/Llama-Rank-V1",
                 "api_key": "{RERANKING_API_KEY}"
             }},
-            metadata_columns = ['Customer_Name'],
-            content_columns = ['Policy_Type'],
-            id_column = 'Policy_ID';
+            metadata_columns = [ 'date', 'sales_rep'],
+            content_columns = ['region'],
+            id_column = 'transaction_id';
         """
         result = con.query(query)
         print(result.fetch())

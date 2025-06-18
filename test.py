@@ -11,7 +11,9 @@ RERANKING_API_KEY = os.getenv('RERANKING_API_KEY')
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
 
 query = """
-        SELECT * FROM insurance_kb"""
+        SELECT *
+FROM sheets_datasource.sales_data
+LIMIT 50;"""
 
 result = con.query(query)
 print(result.fetch())
