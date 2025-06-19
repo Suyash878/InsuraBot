@@ -3,3 +3,5 @@
 test.py
 ./*__pycache__
 query_results.txt
+./backend/__pycache__
+backend/db_data/*

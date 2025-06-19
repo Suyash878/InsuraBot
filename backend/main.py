@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Request, Query
 from mindsdb import sheets_integration, kb_manager, semantic_query, agent
+from db.chat_history import ChatHistory
 import uvicorn
 
 app = FastAPI(title="MindsDB Insurance Assistant")
+chat_db = ChatHistory()
 
 @app.get("/")
 def root():
@@ -16,21 +18,32 @@ async def list_kbs():
 async def query_kb(content_column: str = Query(None, description="Column to search content in")):
     return semantic_query.semantic_search(content_column)
 
-
-
-
 @app.post("/query/agent")
 async def agent_query(request: Request):
     body = await request.json()
     agent_name = body.get("agent_name")
     question = body.get("question")
+    chat_id = body.get("chat_id")
     
     if not agent_name or not question:
         return {
             "status": "error",
             "message": "Both agent_name and question are required"
         }
-    return agent.query_agent(agent_name, question)
+    
+    # Create new chat if no chat_id provided
+    if not chat_id:
+        chat_id = chat_db.create_chat(agent_name)
+    
+    # Query agent
+    response = agent.query_agent(agent_name, question)
+    
+    if response["status"] == "success":
+        # Store message in chat history
+        chat_db.add_message(chat_id, question, response["answer"])
+        response["chat_id"] = chat_id
+    
+    return response
 
 @app.post("/register-sheet")
 async def init_sheets(request: Request):
@@ -39,6 +52,24 @@ async def init_sheets(request: Request):
     sheet_name = body.get("sheet_name")
     data_description = body.get("data_description", "general data")  # New field
     return sheets_integration.init_sheets_db(spreadsheet_id, sheet_name, data_description)
+
+@app.get("/chat/{chat_id}/history")
+async def get_chat_history(chat_id: str):
+    try:
+        history = chat_db.get_chat_history(chat_id)
+        return {
+            "status": "success",
+            "chat_id": chat_id,
+            "history": [
+                {
+                    "question": msg[0],
+                    "answer": msg[1],
+                    "timestamp": msg[2]
+                } for msg in history
+            ]
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
