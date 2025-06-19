@@ -1,4 +1,4 @@
-# NexusLore — Your AI Copilot for Your Data - (WIP)
+# NexusLore — (WIP)
 
 SmartAssist is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
