@@ -32,7 +32,7 @@ def list_knowledge_bases():
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-def create_kb(kb_name: str):
+def create_kb(kb_name: str, metadata_columns: list, content_columns: list, db_name: str):
     try:
         query = f"""
         CREATE KNOWLEDGE_BASE {kb_name}_kb
@@ -47,13 +47,12 @@ def create_kb(kb_name: str):
                 "model_name": "Salesforce/Llama-Rank-V1",
                 "api_key": "{RERANKING_API_KEY}"
             }},
-            metadata_columns = [ 'Customer Name', 'Customer ID'],
-            content_columns = ['Product Name', 'Category'],
-            id_column = 'Order ID';
+            metadata_columns = {metadata_columns},
+            content_columns = {content_columns},
+            id_column = 'transaction_id';
         """
-        result = con.query(query)
-        print(result.fetch())
-        return {"status": "success", "message": f"Knowledge base {kb_name}_kb created."}
+        con.query(query).fetch()
+        return {"status": "success", "message": f"Knowledge base {kb_name}_kb created in database {db_name}."}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 

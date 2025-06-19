@@ -10,11 +10,20 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')  # Using same key for Gemini
 # Connect to local MindsDB instance
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
 
-def init_sheets_db(spreadsheet_id: str, sheet_name: str, data_description: str):
+def init_sheets_db(
+    spreadsheet_id: str,
+    sheet_name: str,
+    data_description: str,
+    metadata_columns: list,
+    content_columns: list
+):
     try:
-        # Create sheets database
+        # Create a dynamic database name
+        db_name = f"{sheet_name}_db"
+
+        # Create sheets database with dynamic name
         sheets_query = f"""
-        CREATE DATABASE orders_data
+        CREATE DATABASE {db_name}
         WITH
             engine = 'sheets',
             parameters = {{
@@ -22,11 +31,10 @@ def init_sheets_db(spreadsheet_id: str, sheet_name: str, data_description: str):
                 "sheet_name": "{sheet_name}"
             }};
         """
-        result = con.query(sheets_query)
-        print(result.fetch())
+        con.query(sheets_query).fetch()
         
-        # Create knowledge base
-        kb_response = kb_manager.create_kb(sheet_name)
+        # Pass db_name to KB creation and other logic as needed
+        kb_response = kb_manager.create_kb(sheet_name, metadata_columns, content_columns, db_name)
         if kb_response["status"] == "error":
             return kb_response
             
@@ -45,7 +53,7 @@ def init_sheets_db(spreadsheet_id: str, sheet_name: str, data_description: str):
             include_tables = ['orders_data.{sheet_name}'],
             prompt_template = '
                 mindsdb.{sheet_name}_kb stores {data_description}
-                orders_data.{sheet_name} stores {data_description}
+                {db_name}.{sheet_name} stores {data_description}
                 Use this data to answer questions accurately.
             ';
         """
