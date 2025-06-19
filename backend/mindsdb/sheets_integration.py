@@ -14,7 +14,7 @@ def init_sheets_db(spreadsheet_id: str, sheet_name: str, data_description: str):
     try:
         # Create sheets database
         sheets_query = f"""
-        CREATE DATABASE sheets_datasource
+        CREATE DATABASE orders_data
         WITH
             engine = 'sheets',
             parameters = {{
@@ -42,10 +42,10 @@ def init_sheets_db(spreadsheet_id: str, sheet_name: str, data_description: str):
             model = 'gemini-2.0-flash',
             google_api_key = '{GEMINI_API_KEY}',
             include_knowledge_bases = ['mindsdb.{sheet_name}_kb'],
-            include_tables = ['sheets_datasource.{sheet_name}'],
+            include_tables = ['orders_data.{sheet_name}'],
             prompt_template = '
                 mindsdb.{sheet_name}_kb stores {data_description}
-                sheets_datasource.{sheet_name} stores {data_description}
+                orders_data.{sheet_name} stores {data_description}
                 Use this data to answer questions accurately.
             ';
         """

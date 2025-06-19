@@ -47,9 +47,9 @@ def create_kb(kb_name: str):
                 "model_name": "Salesforce/Llama-Rank-V1",
                 "api_key": "{RERANKING_API_KEY}"
             }},
-            metadata_columns = [ 'date', 'sales_rep'],
-            content_columns = ['region'],
-            id_column = 'transaction_id';
+            metadata_columns = [ 'Customer Name', 'Customer ID'],
+            content_columns = ['Product Name', 'Category'],
+            id_column = 'Order ID';
         """
         result = con.query(query)
         print(result.fetch())
@@ -61,7 +61,7 @@ def insert_into_kb(kb_name: str):
     try:
         query = f"""
         INSERT INTO {kb_name}_kb
-        SELECT * FROM sheets_datasource.{kb_name};
+        SELECT * FROM orders_data.{kb_name};
         """
         result = con.query(query)
         print(result.fetch())

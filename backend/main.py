@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, Query
-from mindsdb import sheets_integration, kb_manager, semantic_query, jobs
+from mindsdb import sheets_integration, kb_manager, semantic_query, agent
 import uvicorn
 
 app = FastAPI(title="MindsDB Insurance Assistant")
@@ -16,7 +16,21 @@ async def list_kbs():
 async def query_kb(content_column: str = Query(None, description="Column to search content in")):
     return semantic_query.semantic_search(content_column)
 
-@app.get("/query/agent")
+
+
+
+@app.post("/query/agent")
+async def agent_query(request: Request):
+    body = await request.json()
+    agent_name = body.get("agent_name")
+    question = body.get("question")
+    
+    if not agent_name or not question:
+        return {
+            "status": "error",
+            "message": "Both agent_name and question are required"
+        }
+    return agent.query_agent(agent_name, question)
 
 @app.post("/register-sheet")
 async def init_sheets(request: Request):
