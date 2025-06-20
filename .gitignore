@@ -5,3 +5,4 @@ test.py
 query_results.txt
 ./backend/__pycache__
 backend/db_data/*
+node_modules/
