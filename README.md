@@ -1,4 +1,4 @@
-# NexusLore — (WIP)
+# SmartDB API — (WIP)
 
 SmartAssist is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
@@ -36,211 +36,248 @@ Interact with intelligent AI agents that automatically scan and analyze your dat
 ### 📊 Seamless Google Sheets Integration
 Just provide a **Google Sheets ID and sheet name** — no need to upload files. SmartAssist connects it as a **live database** in MindsDB.
 
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- Node.js 16+ (for documentation)
+- MindsDB account or local installation
+- Google Sheets with public access or proper API credentials
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/nexuslore.git
+   cd nexuslore
+   ```
+
+2. **Set up Python environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+3. **Configure environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your MindsDB credentials and configuration
+   ```
+
+4. **Install documentation dependencies:**
+   ```bash
+   cd docs
+   npm install
+   cd ..
+   ```
+
+### Running the Application
+
+1. **Start the FastAPI backend:**
+   ```bash
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+2. **Run the documentation site:**
+   ```bash
+   cd docs
+   npm start
+   ```
+   The documentation will be available at `http://localhost:3000`
+
+3. **Access the API:**
+   - FastAPI backend: `http://localhost:8000`
+   - Interactive API docs: `http://localhost:8000/docs`
+   - ReDoc documentation: `http://localhost:8000/redoc`
+
+---
+
+## 📚 Documentation
+
+### API Reference
+Visit the **Docusaurus documentation site** at `http://localhost:3000` for comprehensive API documentation, including:
+
+- **Getting Started Guide**: Step-by-step setup instructions
+- **API Endpoints**: Detailed documentation for all available endpoints
+- **Examples**: Code samples and use cases
+- **Integration Guides**: How to connect with Google Sheets and other data sources
+- **Troubleshooting**: Common issues and solutions
+
+### Building Documentation for Production
+
+```bash
+cd docs
+npm run build
+npm run serve
+```
+
+---
+
+## ⚙️ How It Works - Under the Hood with MindsDB
+
+SmartAssist leverages MindsDB's powerful capabilities to provide intelligent data analysis and semantic search. Here's how the magic happens:
+
+### 1. Data Connection & Integration
+
+When you register a Google Sheet using the `/register-sheet` endpoint, the system:
+
 ```sql
-CREATE DATABASE insurance_data
+-- Creates a live database connection in MindsDB
+CREATE DATABASE your_sheet_db
 WITH engine = 'sheets',
 parameters = {
-  "spreadsheet_id": "<YOUR_SPREADSHEET_ID>",
-  "sheet_name": "<SHEET_NAME>"
+  "spreadsheet_id": "your_spreadsheet_id",
+  "sheet_name": "your_sheet_name"
 };
 ```
 
-## API Reference
+- **Live Connection**: Your Google Sheet becomes a queryable database in MindsDB
+- **Real-time Sync**: Changes in your sheet are immediately available for analysis
+- **No Data Migration**: No need to upload or duplicate your data
 
-Interact with MindsDB-powered knowledge bases, agents, and chat history via this FastAPI backend.
+### 2. Knowledge Base Creation
+
+SmartAssist automatically creates a MindsDB Knowledge Base for semantic search:
+
+```sql
+-- Creates an intelligent knowledge base
+CREATE KNOWLEDGE_BASE your_sheet_kb
+FROM your_sheet_db
+WITH engine = 'chromadb',
+embeddings_model = 'sentence-transformers/all-MiniLM-L6-v2';
+```
+
+**What happens:**
+- **Vectorization**: Your data is converted into high-dimensional vectors that capture semantic meaning
+- **Embeddings**: Each row and column is processed to understand context and relationships
+- **Indexing**: Creates searchable indexes for fast retrieval based on meaning, not just keywords
+
+### 3. AI Agent Creation
+
+Each dataset gets its own specialized AI agent powered by MindsDB's ML capabilities:
+
+```sql
+-- Creates an intelligent agent for your data
+CREATE AGENT your_sheet_agent
+USING
+  model = 'gpt-4',
+  skills = ['knowledge_base'],
+  knowledge_base = 'your_sheet_kb',
+  database = 'your_sheet_db';
+```
+
+**Agent Capabilities:**
+- **Data Structure Understanding**: Automatically analyzes your columns, data types, and relationships
+- **Context Awareness**: Maintains conversation history for multi-turn analysis
+- **SQL Generation**: Converts natural language questions into optimized SQL queries
+- **Result Interpretation**: Provides human-readable insights from raw data
+
+### 4. Query Processing Pipeline
+
+When you ask a question, here's what happens:
+
+1. **Natural Language Processing**: Your question is parsed and understood using LLMs
+2. **Intent Recognition**: The system determines what type of analysis you need
+3. **Query Generation**: Automatically generates appropriate SQL queries or knowledge base searches
+4. **Data Retrieval**: Executes queries against your live data sources
+5. **Result Processing**: Analyzes results and generates insights
+6. **Response Generation**: Provides human-readable answers with context
+
+### 5. Semantic Search Flow
+
+For content-based searches:
+
+```python
+# Example: "Show me all claims related to dental treatments"
+# 1. Query vectorization
+query_vector = embed_text("dental treatments")
+
+# 2. Similarity search in knowledge base
+similar_content = knowledge_base.search(
+    query_vector, 
+    limit=10, 
+    threshold=0.7
+)
+
+# 3. Context-aware response generation
+response = agent.generate_response(
+    query="Show me all claims related to dental treatments",
+    context=similar_content
+)
+```
+
+### 6. Chat History & Context Management
+
+- **Session Management**: Each conversation maintains context across multiple queries
+- **Memory**: Previous questions and answers inform future responses
+- **Learning**: Agents improve their understanding of your specific data patterns over time
+
+### 7. Real-time Data Analysis
+
+MindsDB's architecture enables:
+- **Live Queries**: Always working with the most current data
+- **Automated Insights**: Background analysis identifies trends and anomalies
+- **Predictive Capabilities**: Can forecast trends based on historical patterns
+- **Multi-source Integration**: Combine data from multiple sheets or databases
 
 ---
 
-## Endpoints
+## 🔧 Configuration
 
-### `GET /`
-**Description:**  
-Health check for the API.
+### Environment Variables
 
-**Response:**
-```json
-{"msg": "Data Assistant API is live."}
-```
-
-**Example:**
 ```bash
-curl http://localhost:8000/
+# MindsDB Configuration
+MINDSDB_URL=https://cloud.mindsdb.com
+MINDSDB_USERNAME=your_username
+MINDSDB_PASSWORD=your_password
+
+# Google Sheets API (if using private sheets)
+GOOGLE_SHEETS_CREDENTIALS_PATH=path/to/credentials.json
+
+# Application Settings
+DEBUG=true
+LOG_LEVEL=info
 ```
+
+### Advanced Configuration
+
+For production deployments, you can configure:
+- Custom embedding models
+- Different vector databases
+- Multiple LLM providers
+- Custom agent personalities
+- Data preprocessing pipelines
 
 ---
 
-### `GET /knowledge-bases`
-**Description:**  
-List all available knowledge bases.
+## 🤝 Contributing
 
-**Response:**
-```json
-{
-  "status": "success",
-  "knowledge_bases": [
-    {
-      "name": "sheet1_kb",
-      "engine": "chromadb",
-      "created_at": "2025-06-17 10:00:00"
-    }
-    // ... other knowledge bases
-  ]
-}
-```
-
-**Example:**
-```bash
-curl http://localhost:8000/knowledge-bases
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
-### `GET /query`
-**Description:**  
-Query the knowledge base.  
-- If `content_column` is provided as a query parameter, performs a content-based search.
-- If not provided, returns all data.
+## 📄 License
 
-**Parameters:**
-- `content_column` (optional, string): The content to search for.
-
-**Response:**
-```json
-{
-  "status": "success",
-  "data": [ ... ],
-  "search_type": "content_based" // or "full"
-}
-```
-
-**Examples:**
-```bash
-# Content-based search
-curl "http://localhost:8000/query?content_column=Office Supplies"
-
-# Return all data
-curl "http://localhost:8000/query"
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-### `POST /query/agent`
-**Description:**  
-Ask a question to an AI agent and store the Q&A in chat history.
+## 🆘 Support
 
-**Request Body:**
-```json
-{
-  "agent_name": "sales_data_agent",
-  "question": "Show me total sales by region",
-  "chat_id": "optional-chat-id"
-}
-```
-- `agent_name` (string, required): Name of the agent to query.
-- `question` (string, required): The question to ask.
-- `chat_id` (string, optional): Existing chat session ID. If omitted, a new chat is created.
-
-**Response:**
-```json
-{
-  "status": "success",
-  "agent": "sales_data_agent",
-  "question": "Show me total sales by region",
-  "answer": "...",
-  "chat_id": "generated-or-provided-chat-id"
-}
-```
-
-**Example:**
-```bash
-curl -X POST http://localhost:8000/query/agent \
-  -H "Content-Type: application/json" \
-  -d '{"agent_name": "sales_data_agent", "question": "Show me total sales by region"}'
-```
-
----
-
-### `POST /register-sheet`
-**Description:**  
-Register a Google Sheet as a knowledge base and agent.
-
-**Request Body:**
-```json
-{
-  "spreadsheet_id": "your_spreadsheet_id",
-  "sheet_name": "your_sheet_name",
-  "data_description": "customer transaction records",
-  "metadata_columns": ["sales_rep", "region"],
-  "content_columns": ["product", "description"]
-}
-```
-- `spreadsheet_id` (string, required): Google Spreadsheet ID.
-- `sheet_name` (string, required): Name of the sheet.
-- `data_description` (string, optional): Description of the data.
-- `metadata_columns` (array of strings, optional): Metadata columns.
-- `content_columns` (array of strings, optional): Content columns.
-
-**Response:**
-```json
-{
-  "status": "success",
-  "message": "Initialized: Google Sheets DB, Knowledge Base 'your_sheet_name_kb', and Agent 'your_sheet_name_agent'"
-}
-```
-
-**Example:**
-```bash
-curl -X POST http://localhost:8000/register-sheet \
-  -H "Content-Type: application/json" \
-  -d '{
-    "spreadsheet_id": "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
-    "sheet_name": "orders",
-    "data_description": "customer transaction records",
-    "metadata_columns": ["sales_rep", "region"],
-    "content_columns": ["product", "description"]
-  }'
-```
-
----
-
-### `GET /chat/{chat_id}/history`
-**Description:**  
-Retrieve the chat history for a given chat session.
-
-**Parameters:**
-- `chat_id` (string, required): The chat session ID.
-
-**Response:**
-```json
-{
-  "status": "success",
-  "chat_id": "your_chat_id",
-  "history": [
-    {
-      "question": "Show me total sales by region",
-      "answer": "...",
-      "timestamp": "2025-06-20T12:34:56"
-    }
-    // ... more Q&A pairs
-  ]
-}
-```
-
-**Example:**
-```bash
-curl http://localhost:8000/chat/your_chat_id/history
-```
-
----
-
-## API Documentation
-
-- Interactive Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
-- ReDoc: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- **Documentation**: Visit `http://localhost:3000` for detailed guides
+- **Issues**: Report bugs and request features on GitHub
+- **Community**: Join our Discord for discussions and support
 
 ---
 
 **Tip:**  
-Replace `localhost:8000` with your server's address if running remotely.
-
----
+Start with the documentation site to explore all available features and see live examples of the API in action!
