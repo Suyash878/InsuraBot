@@ -1,4 +1,4 @@
-# NexusLore — (WIP)
+# SmartDB API — (WIP)
 
 SmartAssist is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
