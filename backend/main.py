@@ -15,8 +15,11 @@ async def list_kbs():
     return kb_manager.list_knowledge_bases()
 
 @app.get("/query")
-async def query_kb(content_column: str = Query(None, description="Column to search content in")):
-    return semantic_query.semantic_search(content_column)
+async def query_kb(
+    kb_name: str = Query(..., description="Knowledge base name to query from"),
+    content_column: str = Query(None, description="Column to search content in")
+):
+    return semantic_query.semantic_search(kb_name, content_column)
 
 @app.post("/query/agent")
 async def agent_query(request: Request):
@@ -45,13 +48,23 @@ async def agent_query(request: Request):
     
     return response
 
-@app.post("/register-sheet")
+@app.post("/register-sheet", tags=["Knowledge Base"])
 async def init_sheets(request: Request):
     body = await request.json()
+    id = body.get("id")  # <-- New field
     spreadsheet_id = body.get("spreadsheet_id")
     sheet_name = body.get("sheet_name")
-    data_description = body.get("data_description", "general data")  # New field
-    return sheets_integration.init_sheets_db(spreadsheet_id, sheet_name, data_description)
+    data_description = body.get("data_description", "general data")
+    metadata_columns = body.get("metadata_columns", [])
+    content_columns = body.get("content_columns", [])
+    return sheets_integration.init_sheets_db(
+        id,  # <-- Pass id
+        spreadsheet_id,
+        sheet_name,
+        data_description,
+        metadata_columns,
+        content_columns
+    )
 
 @app.get("/chat/{chat_id}/history")
 async def get_chat_history(chat_id: str):

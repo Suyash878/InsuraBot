@@ -32,7 +32,7 @@ def list_knowledge_bases():
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-def create_kb(kb_name: str, metadata_columns: list, content_columns: list, db_name: str):
+def create_kb(kb_name: str, metadata_columns: list, content_columns: list, db_name: str, id: str):
     try:
         query = f"""
         CREATE KNOWLEDGE_BASE {kb_name}_kb
@@ -49,18 +49,18 @@ def create_kb(kb_name: str, metadata_columns: list, content_columns: list, db_na
             }},
             metadata_columns = {metadata_columns},
             content_columns = {content_columns},
-            id_column = 'transaction_id';
+            id_column = {id};
         """
         con.query(query).fetch()
         return {"status": "success", "message": f"Knowledge base {kb_name}_kb created in database {db_name}."}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-def insert_into_kb(kb_name: str):
+def insert_into_kb(kb_name: str, db_name: str):
     try:
         query = f"""
         INSERT INTO {kb_name}_kb
-        SELECT * FROM orders_data.{kb_name};
+        SELECT * FROM {db_name}.{kb_name};
         """
         result = con.query(query)
         print(result.fetch())

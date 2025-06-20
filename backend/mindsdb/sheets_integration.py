@@ -11,6 +11,7 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')  # Using same key for Gemini
 con = mindsdb_sdk.connect("http://127.0.0.1:47334")
 
 def init_sheets_db(
+    id: str,
     spreadsheet_id: str,
     sheet_name: str,
     data_description: str,
@@ -34,12 +35,12 @@ def init_sheets_db(
         con.query(sheets_query).fetch()
         
         # Pass db_name to KB creation and other logic as needed
-        kb_response = kb_manager.create_kb(sheet_name, metadata_columns, content_columns, db_name)
+        kb_response = kb_manager.create_kb(sheet_name, metadata_columns, content_columns, db_name, id)
         if kb_response["status"] == "error":
             return kb_response
             
         # Insert data into knowledge base
-        insert_response = kb_manager.insert_into_kb(sheet_name)
+        insert_response = kb_manager.insert_into_kb(sheet_name, db_name)
         if insert_response["status"] == "error":    
             return insert_response
             
