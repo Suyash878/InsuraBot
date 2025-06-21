@@ -1,6 +1,6 @@
 # SmartDB API — (WIP)
 
-SmartAssist is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
+SmartDB is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
 Whether you're exploring large datasets, analyzing customer queries, or automating support — SmartAssist gives you **semantic search**, **AI classification**, **intelligent data analysis**, and **Google Sheets integration** all in one platform.
 
@@ -51,8 +51,8 @@ Just provide a **Google Sheets ID and sheet name** — no need to upload files. 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/nexuslore.git
-   cd nexuslore
+   git clone https://github.com/your-username/SmartDB.git
+   cd SmartDB
    ```
 
 2. **Set up Python environment:**
