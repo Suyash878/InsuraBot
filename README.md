@@ -1,21 +1,24 @@
-# SmartDB API — (WIP)
-
-SmartDB is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0c062d3c-a3a6-4840-bd82-97ebfb1e0c6e" width="400"/>
+</p>
+SmartDB-API is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
 Whether you're exploring large datasets, analyzing customer queries, or automating support — SmartAssist gives you **semantic search**, **AI classification**, **intelligent data analysis**, and **Google Sheets integration** all in one platform.
+
+Checkout the [API Reference](https://smart-db.vercel.app/)
 
 ---
 
 ## Features
 
-### 🔍 Semantic Search on your Data
+### Semantic Search on your Data
 Search your documents and spreadsheets using natural language queries. SmartAssist uses MindsDB's Knowledge Bases to understand what you mean — not just exact keywords.
 
 > _Example:_ "Show me all claims related to dental treatments in 2024"
 
 ---
 
-### 🤖 AI Agent Data Analysis
+### AI Agent Data Analysis
 Interact with intelligent AI agents that automatically scan and analyze your data to provide relevant insights and answers. Each dataset gets its own specialized agent that understands your data structure and can answer complex questions about patterns, trends, and relationships in your data.
 
 **Key Capabilities:**
@@ -33,12 +36,12 @@ Interact with intelligent AI agents that automatically scan and analyze your dat
 
 ---
 
-### 📊 Seamless Google Sheets Integration
+### Seamless Google Sheets Integration
 Just provide a **Google Sheets ID and sheet name** — no need to upload files. SmartAssist connects it as a **live database** in MindsDB.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -96,7 +99,7 @@ Just provide a **Google Sheets ID and sheet name** — no need to upload files. 
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### API Reference
 Visit the **Docusaurus documentation site** at `http://localhost:3000` for comprehensive API documentation, including:
@@ -117,7 +120,7 @@ npm run serve
 
 ---
 
-## ⚙️ How It Works - Under the Hood with MindsDB
+## How It Works - Under the Hood with MindsDB
 
 SmartAssist leverages MindsDB's powerful capabilities to provide intelligent data analysis and semantic search. Here's how the magic happens:
 
@@ -226,7 +229,7 @@ MindsDB's architecture enables:
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -255,7 +258,7 @@ For production deployments, you can configure:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -265,13 +268,13 @@ For production deployments, you can configure:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🆘 Support
+## Support
 
 - **Documentation**: Visit `http://localhost:3000` for detailed guides
 - **Issues**: Report bugs and request features on GitHub
