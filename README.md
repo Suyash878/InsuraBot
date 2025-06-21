@@ -122,6 +122,8 @@ npm run serve
 
 ## How It Works - Under the Hood with MindsDB
 
+![image](https://github.com/user-attachments/assets/0d8bac41-39af-49a7-a289-a1e5e32fdeb9)
+
 SmartAssist leverages MindsDB's powerful capabilities to provide intelligent data analysis and semantic search. Here's how the magic happens:
 
 ### 1. Data Connection & Integration
