@@ -37,11 +37,11 @@ const sidebars = {
       label: 'API Reference',
       items: [
         'api/overview',
-        'api/knowledge-bases',
+        'api/register-sheet',
         'api/query',
         'api/agent-query',
-        'api/register-sheet',
         'api/chat-history',
+        'api/knowledge-bases',
         'api/jobs',
       ],
     },
