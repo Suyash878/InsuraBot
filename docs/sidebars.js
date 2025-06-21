@@ -39,7 +39,7 @@ const sidebars = {
         'api/overview',
         'api/knowledge-bases',
         'api/query',
-        'api/agent',
+        'api/agent-query',
         'api/register-sheet',
         'api/chat-history',
         'api/jobs',
