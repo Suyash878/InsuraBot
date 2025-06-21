@@ -123,7 +123,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} MindsDB Data Assistant API.`,
+        copyright: `Copyright © ${new Date().getFullYear()} SmartDB API.`,
       },
       prism: {
         theme: prismThemes.github,

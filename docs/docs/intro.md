@@ -1,6 +1,6 @@
 ---
 id: intro
-title: MindsDB Data Assistant API
+title: SmartDB API
 sidebar_label: Introduction
 ---
 
