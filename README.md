@@ -5,6 +5,8 @@ SmartDB-API is an intelligent assistant powered by MindsDB and fine-tuned domain
 
 Whether you're exploring large datasets, analyzing customer queries, or automating support — SmartAssist gives you **semantic search**, **AI classification**, **intelligent data analysis**, and **Google Sheets integration** all in one platform.
 
+Checkout the [API Reference](https://smart-db.vercel.app/)
+
 ---
 
 ## Features
