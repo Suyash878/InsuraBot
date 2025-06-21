@@ -1,5 +1,6 @@
-# <div align="center">SmartDB API — (WIP)</div>
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0c062d3c-a3a6-4840-bd82-97ebfb1e0c6e" width="400"/>
+</p>
 SmartDB is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
 Whether you're exploring large datasets, analyzing customer queries, or automating support — SmartAssist gives you **semantic search**, **AI classification**, **intelligent data analysis**, and **Google Sheets integration** all in one platform.
