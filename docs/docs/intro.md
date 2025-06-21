@@ -4,7 +4,7 @@ title: MindsDB Data Assistant API
 sidebar_label: Introduction
 ---
 
-Welcome to the **MindsDB Data Assistant API** documentation!
+Welcome to the **SmartDB API** documentation!
 
 This API lets you:
 - Register Google Sheets as knowledge bases
