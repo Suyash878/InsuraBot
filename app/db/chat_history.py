@@ -63,3 +63,8 @@ class ChatHistory:
         cursor = self.conn.execute(query)
         result = cursor.fetchall()
         return result
+
+    def list_chats(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT chat_id, agent_name, created_at FROM chats ORDER BY created_at DESC")
+        return cursor.fetchall()

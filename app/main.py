@@ -22,6 +22,23 @@ async def query_kb(
 ):
     return semantic_query.semantic_search(kb_name, content_column)
 
+@app.get("/chats", tags=["Chat"])
+async def list_chats():
+    try:
+        chats = chat_db.list_chats()  
+        return {
+            "status": "success",
+            "chats": [
+                {
+                    "chat_id": chat[0],
+                    "agent_name": chat[1],
+                    "created_at": chat[2]
+                } for chat in chats
+            ]
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 @app.get("/chat/{chat_id}/history")
 async def get_chat_history(chat_id: str):
     try:
@@ -88,6 +105,7 @@ async def init_sheets(request: Request):
 @app.post("/jobs/create", tags=["Jobs"])
 async def create_job(payload: jobs_manager.CreateJobRequest):
     return job_manager.create_job(payload)
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
