@@ -1,32 +1,55 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0c062d3c-a3a6-4840-bd82-97ebfb1e0c6e" width="400"/>
 </p>
+
+<p align="center">
+  <a href="https://github.com/your-username/SmartDB/actions"><img src="https://img.shields.io/github/workflow/status/your-username/SmartDB/CI?label=Build&logo=github" alt="Build Status"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python" alt="Python Version"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+  <a href="http://localhost:3000"><img src="https://img.shields.io/badge/Docs-Docusaurus-blueviolet" alt="Docs"></a>
+</p>
+
+<h1 align="center">🚀 SmartDB-API</h1>
+
 SmartDB-API is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
 
 Whether you're exploring large datasets, analyzing customer queries, or automating support — SmartAssist gives you **semantic search**, **AI classification**, **intelligent data analysis**, and **Google Sheets integration** all in one platform.
 
-Checkout the [API Reference](https://smart-db.vercel.app/)
+[API Reference](https://smart-db.vercel.app/)
 
 ---
 
-## Features
+## 📑 Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+- [How It Works - Under the Hood with MindsDB](#how-it-works---under-the-hood-with-mindsdb)
+- [Configuration](#configuration)
+- [Utility Functions](#utility-functions)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
 
-### Semantic Search on your Data
+---
+
+## ✨ Features
+
+### 🔍 Semantic Search on your Data
 Search your documents and spreadsheets using natural language queries. SmartAssist uses MindsDB's Knowledge Bases to understand what you mean — not just exact keywords.
 
 > _Example:_ "Show me all claims related to dental treatments in 2024"
 
 ---
 
-### AI Agent Data Analysis
+### 🤖 AI Agent Data Analysis
 Interact with intelligent AI agents that automatically scan and analyze your data to provide relevant insights and answers. Each dataset gets its own specialized agent that understands your data structure and can answer complex questions about patterns, trends, and relationships in your data.
 
 **Key Capabilities:**
-- **Automatic Data Understanding**: Agents analyze your data structure, column relationships, and data types
-- **Natural Language Queries**: Ask questions in plain English about your data
-- **Contextual Responses**: Get answers that reference specific data points and provide actionable insights
-- **Chat History**: Maintain conversation context across multiple queries for deep-dive analysis
-- **Real-time Analysis**: Agents work with live data from your connected sources
+- 🚦 **Automatic Data Understanding**: Agents analyze your data structure, column relationships, and data types
+- 💬 **Natural Language Queries**: Ask questions in plain English about your data
+- 🧠 **Contextual Responses**: Get answers that reference specific data points and provide actionable insights
+- 🕑 **Chat History**: Maintain conversation context across multiple queries for deep-dive analysis
+- ⚡ **Real-time Analysis**: Agents work with live data from your connected sources
 
 > _Examples:_
 > - "What are the top 3 product categories by sales this quarter?"
@@ -36,81 +59,70 @@ Interact with intelligent AI agents that automatically scan and analyze your dat
 
 ---
 
-### Seamless Google Sheets Integration
+### 📊 Seamless Google Sheets Integration
 Just provide a **Google Sheets ID and sheet name** — no need to upload files. SmartAssist connects it as a **live database** in MindsDB.
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
-### Prerequisites
+> **Prerequisites:**
+> - Python 3.8+
+> - Node.js 16+ (for documentation)
+> - MindsDB account or local installation
+> - Google Sheets with public access or proper API credentials
 
-- Python 3.8+
-- Node.js 16+ (for documentation)
-- MindsDB account or local installation
-- Google Sheets with public access or proper API credentials
+### 🛠️ Installation
 
-### Installation
+```bash
+# 1. Clone the repository
+$ git clone https://github.com/your-username/SmartDB.git
+$ cd SmartDB
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/SmartDB.git
-   cd SmartDB
-   ```
+# 2. Set up Python environment
+$ python -m venv venv
+$ source venv/bin/activate  # On Windows: venv\Scripts\activate
+$ pip install -r requirements.txt
 
-2. **Set up Python environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+# 3. Configure environment variables
+$ cp .env.example .env
+# Edit .env with your MindsDB credentials and configuration
 
-3. **Configure environment variables:**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your MindsDB credentials and configuration
-   ```
+# 4. Install documentation dependencies
+$ cd docs
+$ npm install
+$ cd ..
+```
 
-4. **Install documentation dependencies:**
-   ```bash
-   cd docs
-   npm install
-   cd ..
-   ```
+### ▶️ Running the Application
 
-### Running the Application
+```bash
+# 1. Start the FastAPI backend
+$ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
-1. **Start the FastAPI backend:**
-   ```bash
-   uvicorn main:app --reload --host 0.0.0.0 --port 8000
-   ```
+# 2. Run the documentation site
+$ cd docs
+$ npm start
+```
 
-2. **Run the documentation site:**
-   ```bash
-   cd docs
-   npm start
-   ```
-   The documentation will be available at `http://localhost:3000`
-
-3. **Access the API:**
-   - FastAPI backend: `http://localhost:8000`
-   - Interactive API docs: `http://localhost:8000/docs`
-   - ReDoc documentation: `http://localhost:8000/redoc`
+- Documentation: [http://localhost:3000](http://localhost:3000)
+- FastAPI backend: [http://localhost:8000](http://localhost:8000)
+- Interactive API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
+- ReDoc documentation: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
 ---
 
-## Documentation
+## 📚 Documentation
 
-### API Reference
-Visit the **Docusaurus documentation site** at `http://localhost:3000` for comprehensive API documentation, including:
+Visit the **Docusaurus documentation site** at [http://localhost:3000](http://localhost:3000) for comprehensive API documentation, including:
 
-- **Getting Started Guide**: Step-by-step setup instructions
-- **API Endpoints**: Detailed documentation for all available endpoints
-- **Examples**: Code samples and use cases
-- **Integration Guides**: How to connect with Google Sheets and other data sources
-- **Troubleshooting**: Common issues and solutions
+- 🏁 **Getting Started Guide**: Step-by-step setup instructions
+- 🔗 **API Endpoints**: Detailed documentation for all available endpoints
+- 💡 **Examples**: Code samples and use cases
+- 🔌 **Integration Guides**: How to connect with Google Sheets and other data sources
+- 🛠️ **Troubleshooting**: Common issues and solutions
 
-### Building Documentation for Production
+### 🏗️ Building Documentation for Production
 
 ```bash
 cd docs
@@ -120,13 +132,13 @@ npm run serve
 
 ---
 
-## How It Works - Under the Hood with MindsDB
+## 🧠 How It Works - Under the Hood with MindsDB
 
 ![image](https://github.com/user-attachments/assets/0d8bac41-39af-49a7-a289-a1e5e32fdeb9)
 
 SmartAssist leverages MindsDB's powerful capabilities to provide intelligent data analysis and semantic search. Here's how the magic happens:
 
-### 1. Data Connection & Integration
+### 1️⃣ Data Connection & Integration
 
 When you register a Google Sheet using the `/register-sheet` endpoint, the system:
 
@@ -144,7 +156,7 @@ parameters = {
 - **Real-time Sync**: Changes in your sheet are immediately available for analysis
 - **No Data Migration**: No need to upload or duplicate your data
 
-### 2. Knowledge Base Creation
+### 2️⃣ Knowledge Base Creation
 
 SmartAssist automatically creates a MindsDB Knowledge Base for semantic search:
 
@@ -161,7 +173,7 @@ embeddings_model = 'sentence-transformers/all-MiniLM-L6-v2';
 - **Embeddings**: Each row and column is processed to understand context and relationships
 - **Indexing**: Creates searchable indexes for fast retrieval based on meaning, not just keywords
 
-### 3. AI Agent Creation
+### 3️⃣ AI Agent Creation
 
 Each dataset gets its own specialized AI agent powered by MindsDB's ML capabilities:
 
@@ -181,7 +193,7 @@ USING
 - **SQL Generation**: Converts natural language questions into optimized SQL queries
 - **Result Interpretation**: Provides human-readable insights from raw data
 
-### 4. Query Processing Pipeline
+### 4️⃣ Query Processing Pipeline
 
 When you ask a question, here's what happens:
 
@@ -192,7 +204,7 @@ When you ask a question, here's what happens:
 5. **Result Processing**: Analyzes results and generates insights
 6. **Response Generation**: Provides human-readable answers with context
 
-### 5. Semantic Search Flow
+### 5️⃣ Semantic Search Flow
 
 For content-based searches:
 
@@ -215,13 +227,13 @@ response = agent.generate_response(
 )
 ```
 
-### 6. Chat History & Context Management
+### 6️⃣ Chat History & Context Management
 
 - **Session Management**: Each conversation maintains context across multiple queries
 - **Memory**: Previous questions and answers inform future responses
 - **Learning**: Agents improve their understanding of your specific data patterns over time
 
-### 7. Real-time Data Analysis
+### 7️⃣ Real-time Data Analysis
 
 MindsDB's architecture enables:
 - **Live Queries**: Always working with the most current data
@@ -231,25 +243,22 @@ MindsDB's architecture enables:
 
 ---
 
-## Configuration
+## ⚙️ Configuration
 
-### Environment Variables
+### 📝 Environment Variables
 
 ```bash
 # MindsDB Configuration
-MINDSDB_URL=https://cloud.mindsdb.com
-MINDSDB_USERNAME=your_username
-MINDSDB_PASSWORD=your_password
-
-# Google Sheets API (if using private sheets)
-GOOGLE_SHEETS_CREDENTIALS_PATH=path/to/credentials.json
+GEMINI_API_KEY
+EMBEDDING_MODEL_API_KEY
+RERANKING_MODEL_API_KEY
 
 # Application Settings
 DEBUG=true
 LOG_LEVEL=info
 ```
 
-### Advanced Configuration
+### 🧩 Advanced Configuration
 
 For production deployments, you can configure:
 - Custom embedding models
@@ -260,7 +269,7 @@ For production deployments, you can configure:
 
 ---
 
-## Utility Functions
+## 🛠️ Utility Functions
 
 ### `fetch_chat`
 
@@ -298,11 +307,11 @@ def convert_to_markdown(chat_history: list) -> str:
     # ...implementation...
 ```
 
-> These utility functions help in retrieving chat history and formatting it for documentation or export purposes.
+> ℹ️ These utility functions help in retrieving chat history and formatting it for documentation or export purposes.
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -312,19 +321,19 @@ def convert_to_markdown(chat_history: list) -> str:
 
 ---
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Support
+## 💬 Support
 
-- **Documentation**: Visit `http://localhost:3000` for detailed guides
+- **Documentation**: Visit [http://localhost:3000](http://localhost:3000) for detailed guides
 - **Issues**: Report bugs and request features on GitHub
 - **Community**: Join our Discord for discussions and support
 
 ---
 
-**Tip:**  
-Start with the documentation site to explore all available features and see live examples of the API in action!
+> **Tip:**  
+> Start with the documentation site to explore all available features and see live examples of the API in action!
