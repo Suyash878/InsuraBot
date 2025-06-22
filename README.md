@@ -260,6 +260,48 @@ For production deployments, you can configure:
 
 ---
 
+## Utility Functions
+
+### `fetch_chat`
+
+Fetches chat history or messages from the data source or API.
+
+```python
+def fetch_chat(session_id: str) -> list:
+    """
+    Retrieve the chat history for a given session.
+
+    Args:
+        session_id (str): The unique identifier for the chat session.
+
+    Returns:
+        list: A list of chat messages (dicts or strings).
+    """
+    # ...implementation...
+```
+
+### `convert_to_markdown`
+
+Converts chat messages or data into Markdown format for display or export.
+
+```python
+def convert_to_markdown(chat_history: list) -> str:
+    """
+    Convert a list of chat messages to a Markdown-formatted string.
+
+    Args:
+        chat_history (list): List of chat messages.
+
+    Returns:
+        str: Markdown-formatted chat history.
+    """
+    # ...implementation...
+```
+
+> These utility functions help in retrieving chat history and formatting it for documentation or export purposes.
+
+---
+
 ## Contributing
 
 1. Fork the repository
