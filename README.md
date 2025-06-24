@@ -1,14 +1,12 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0c062d3c-a3a6-4840-bd82-97ebfb1e0c6e" width="400"/>
+  <img src="https://github.com/user-attachments/assets/73a42fc7-9a46-455c-b749-4d05bef364fa" width="400"/>
 </p>
-
 <p align="center">
   <a href="https://github.com/your-username/SmartDB/actions"><img src="https://img.shields.io/github/workflow/status/your-username/SmartDB/CI?label=Build&logo=github" alt="Build Status"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python" alt="Python Version"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
   <a href="http://localhost:3000"><img src="https://img.shields.io/badge/Docs-Docusaurus-blueviolet" alt="Docs"></a>
 </p>
-
 <h1 align="center">🚀 SmartDB-API</h1>
 
 SmartDB-API is an intelligent assistant powered by MindsDB and fine-tuned domain LLMs.
