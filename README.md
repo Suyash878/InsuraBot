@@ -15,9 +15,22 @@ Whether you're exploring large datasets, analyzing customer queries, or automati
 
 [API Reference](https://smart-db.vercel.app/)
 
+## 🎥 Demo Video
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=9MGvArWHgJw">
+    <img src="https://img.youtube.com/vi/9MGvArWHgJw/maxresdefault.jpg" alt="SmartDB-API Demo" width="600"/>
+  </a>
+</p>
+
+**Watch the demo:** [SmartDB-API in Action](https://www.youtube.com/watch?v=9MGvArWHgJw)
+
+See how SmartDB-API transforms your data analysis workflow with intelligent agents, semantic search, and seamless Google Sheets integration.
+
 ---
 
 ## 📑 Table of Contents
+- [Demo Video](#-demo-video)
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
