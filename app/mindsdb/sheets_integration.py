@@ -22,7 +22,27 @@ def init_sheets_db(
         # Create a dynamic database name
         db_name = f"{sheet_name}_db"
 
-        # Create sheets database with dynamic name
+        # Create pgvector database first (separate query)
+        pgvector_query = """
+        CREATE DATABASE my_pgvector
+        WITH ENGINE = 'pgvector',
+        PARAMETERS = {
+            "host": "172.17.0.1",
+            "port": 5432,
+            "database": "postgres",
+            "user": "user",
+            "password": "password",
+            "distance": "cosine"
+        };
+        """
+        
+        try:
+            con.query(pgvector_query).fetch()
+        except Exception as pgv_error:
+            # pgvector db might already exist, continue
+            print(f"pgvector creation note: {pgv_error}")
+
+        # Create sheets database (separate query with proper escaping)
         sheets_query = f"""
         CREATE DATABASE {db_name}
         WITH
@@ -44,14 +64,14 @@ def init_sheets_db(
         if insert_response["status"] == "error":    
             return insert_response
             
-        # Create AI agent
+        # Create AI agent (fixed f-string formatting)
         agent_query = f"""
         CREATE AGENT {sheet_name}_agent
         USING
             model = 'gemini-2.0-flash',
             google_api_key = '{GEMINI_API_KEY}',
             include_knowledge_bases = ['mindsdb.{sheet_name}_kb'],
-            include_tables = ['orders_data.{sheet_name}'],
+            include_tables = ['{db_name}.{sheet_name}'],
             prompt_template = '
                 mindsdb.{sheet_name}_kb stores {data_description}
                 {db_name}.{sheet_name} stores {data_description}

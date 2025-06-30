@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, Query
-from mindsdb import sheets_integration, kb_manager, semantic_query, agent, jobs_manager
+from mindsdb import sheets_integration, kb_manager, semantic_query, agent, jobs_manager, kb_evaluator
 from db.chat_history import ChatHistory
 import uvicorn
 job_manager = jobs_manager.JobManager()
@@ -105,6 +105,16 @@ async def init_sheets(request: Request):
 @app.post("/jobs/create", tags=["Jobs"])
 async def create_job(payload: jobs_manager.CreateJobRequest):
     return job_manager.create_job(payload)
+
+@app.post("/knowledge-base/evaluate", tags=["Knowledge Base"])
+async def evaluate_knowledge_base(request: Request):
+    body = await request.json()
+    kb_name = body.get("kb_name")
+    evaluate = body.get("evaluate", True)
+    llm = body.get("llm", None)
+    if not kb_name:
+        return {"status": "error", "message": "kb_name is required"}
+    return kb_evaluator.evaluate_kb(kb_name, evaluate, llm)
 
 
 if __name__ == "__main__":
