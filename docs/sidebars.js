@@ -43,6 +43,7 @@ const sidebars = {
         'api/chat-history',
         'api/knowledge-bases',
         'api/jobs',
+        'api/evaluate-kb',
       ],
     },
   ],

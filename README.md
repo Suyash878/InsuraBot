@@ -49,11 +49,15 @@ See how SmartDB-API transforms your data analysis workflow with intelligent agen
 Search your documents and spreadsheets using natural language queries. SmartAssist uses MindsDB's Knowledge Bases to understand what you mean — not just exact keywords.
 
 > _Example:_ "Show me all claims related to dental treatments in 2024"
+>
+> [Learn more about MindsDB Knowledge Bases](https://docs.mindsdb.com/mindsdb_sql/knowledge-bases)
 
 ---
 
 ### 🤖 AI Agent Data Analysis
 Interact with intelligent AI agents that automatically scan and analyze your data to provide relevant insights and answers. Each dataset gets its own specialized agent that understands your data structure and can answer complex questions about patterns, trends, and relationships in your data.
+
+[Learn more about MindsDB Agents](https://docs.mindsdb.com/mindsdb_sql/agents/agent)
 
 **Key Capabilities:**
 - 🚦 **Automatic Data Understanding**: Agents analyze your data structure, column relationships, and data types
@@ -179,6 +183,8 @@ WITH engine = 'chromadb',
 embeddings_model = 'sentence-transformers/all-MiniLM-L6-v2';
 ```
 
+[See MindsDB Knowledge Base Docs](https://docs.mindsdb.com/mindsdb_sql/knowledge-bases)
+
 **What happens:**
 - **Vectorization**: Your data is converted into high-dimensional vectors that capture semantic meaning
 - **Embeddings**: Each row and column is processed to understand context and relationships
@@ -197,6 +203,8 @@ USING
   knowledge_base = 'your_sheet_kb',
   database = 'your_sheet_db';
 ```
+
+[See MindsDB Agent Docs](https://docs.mindsdb.com/mindsdb_sql/agents/agent)
 
 **Agent Capabilities:**
 - **Data Structure Understanding**: Automatically analyzes your columns, data types, and relationships
